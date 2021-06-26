@@ -1,0 +1,7 @@
+
+/* Style the "active" element to highlight the current page */
+.active {
+    background-color: #2196F3;
+    border-radius: 5px;
+    color: white;
+}

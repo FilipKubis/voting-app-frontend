@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css'
+import Topnav from './components/Topnav/Topnav'
+import ElectionHome from './components/ElectionHome/ElectionHome'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import About from './components/About/About'
+import Election from './components/Election/Election'
+
+
+export default class App extends React.Component {
+
+  componentDidMount = () => {
+    fetch('/api/candidates')
+      .then(response => {
+        return response.json()
+      })
+      .then(candidates => {
+        this.setState({ candidates })
+      })
+  }
+
+  render = () => {
+    return (
+      <Router>
+        <div className='App'>
+          <Topnav />
+          <Switch>
+            <Route path='/about' component={About} />
+            <Route path='/elections/:uuid' component={Election} />
+            <ElectionHome />
+          </Switch>
+        </div>
+      </Router>
+    )
+  }
 }
-
-export default App;
